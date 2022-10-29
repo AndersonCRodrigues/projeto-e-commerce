@@ -6,6 +6,7 @@ export const reducer = (state, action) => {
       return {...state, products: action.payload.results,
         loarding: false,
         busca: false,
+        searchBy: state.product,
         product: '' }
     }
     case types.PRODUCT_LOADING: {
@@ -15,7 +16,9 @@ export const reducer = (state, action) => {
       return {...state, busca: true }
     }
     case types.PRODUCT_CHANGE: {
-      return {...state, product: action.payload }
+      return {...state,
+        product: action.payload,
+      }
     }
     case types.ITEM_SUCCESS: {
       return {...state,

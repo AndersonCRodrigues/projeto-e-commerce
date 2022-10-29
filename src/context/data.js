@@ -7,4 +7,5 @@ export const data = {
   busca: false,
   itemLoading: false,
   shoppingCart: [],
+  searchBy: '',
 };

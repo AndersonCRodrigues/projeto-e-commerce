@@ -4,11 +4,9 @@ import { useEffect, useRef } from "react";
 import { useContext } from "react";
 import { Product } from "../product";
 import { useState } from "react";
-import { InputSearch } from "../inputSearch";
-import { ButtonSearch } from '../buttonSearch';
 import { ButtonIndex } from '../buttonsIndex';
 import { ProductContext } from '../../context/context';
-import { itemLoad, productLoad, productSearch } from '../../context/actions';
+import { itemLoad, productLoad} from '../../context/actions';
 
 export const ProductsContent = () => {
   const isMounted = useRef(true);
@@ -18,7 +16,6 @@ export const ProductsContent = () => {
 
   const [index, setIndex] = useState({ inicio: 0, fim: 12});
   const [total, setTotal] = useState(0);
-  const [searchBy, setSearchBy] = useState('')
 
   useEffect(() => {
     productState.busca && productLoad(productDispacth, productState.product)
@@ -32,11 +29,6 @@ export const ProductsContent = () => {
     ? parseInt(produtos.length / 12)
     : parseInt(produtos.length / 12) + 1);
   }, [produtos.length])
-
-  const handleSearch = () => {
-    productState.product && productSearch(productDispacth);
-    setSearchBy(productState.product);
-  }
 
   const handleIndex = ({target}) => {
     const { id } = target;
@@ -52,9 +44,7 @@ export const ProductsContent = () => {
 
   return (
     <section >
-      <InputSearch />
-      <ButtonSearch handleSearch={handleSearch} />
-      {searchBy && <h3>Você pesquisou por "{searchBy}"</h3>}
+      {productState.searchBy && <h3>Você pesquisou por "{productState.searchBy}"</h3>}
       <div className="productContent">
         {productState.loading
         ? <span>Carregando</span>
