@@ -8,7 +8,6 @@ export const productLoad = async (dispatch, product) => {
   const response = await fetch(endPoint);
   const data = await response.json();
   dispatch({type: types.PRODUCT_SUCCESS , payload: data});
-  console.log(data.results);
 }
 
 export const producSeach = (dispatch, payload) => {
