@@ -1,19 +1,23 @@
- import { Cart } from '../components/cart';
 import { Header } from '../components/header';
-import { NavFilter } from '../components/navegadorFilter';
-import { ProductsContent } from '../components/productsContent';
 import { ProductProvider } from '../context';
-import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Home } from './home/index ';
+import { Cadastro } from './cadastro';
+import { Cart } from './cart';
+import { Item } from './item';
 
 export default function App() {
   return (
     <ProductProvider>
-      <Header />
-      <main>
-        <NavFilter />
-        <ProductsContent />
-        <Cart />
-      </main>
+      <BrowserRouter>
+        <Header />
+          <Switch>
+            <Route path='/' component={Home} exact/>
+            <Route path='/cadastro' component={Cadastro} />
+            <Route path='/carrinho' component={Cart} />
+            <Route path='/item' component={Item} />
+          </Switch>
+      </BrowserRouter>
     </ProductProvider>
   );
 }
