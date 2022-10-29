@@ -1,0 +1,21 @@
+.cartIcon {
+  display: flex;
+  justify-content: center;
+}
+
+.cartIcon img {
+  width: 40px;
+  position: absolute;
+  z-index: 1;
+}
+
+.cartIcon span {
+  padding: 3px 0px;
+  padding-left: 7px;
+  z-index: 2;
+  position: absolute;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif;
+}
