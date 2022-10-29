@@ -1,10 +1,12 @@
+import '../../style/productContent.css';
+
 import { useEffect } from "react";
 import { useContext } from "react";
-import {  productChange, productLoad } from "../../context/actions";
+import { productLoad } from "../../context/actions";
 import { ProductContext } from "../../context/context";
 import { Product } from "../product";
-import '../../style/productContent.css';
 import { useState } from "react";
+import { InputSearch } from "../inputSearch";
 
 export const ProductsContent = () => {
   const productContext = useContext(ProductContext);
@@ -28,10 +30,6 @@ export const ProductsContent = () => {
 
   }
 
-  const handleChange = ({target}) => {
-    productChange(productDispacth, target.value)
-  }
-
   const handleIndex = ({target}) => {
     const { id } = target;
     setIndex({ inicio: id, fim: (Number(id) + 12)})
@@ -44,7 +42,7 @@ export const ProductsContent = () => {
   return (
     <section >
       <p>Produtos</p>
-      <input type="text" onChange={handleChange} name='product' value={productState.product}/>
+      <InputSearch />
       <button type="submit" onClick={handleSeach}>Search</button>
       {seachBy && <h3>Você pesquisou por "{seachBy}"</h3>}
       <div className="productContent">
