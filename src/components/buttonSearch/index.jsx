@@ -1,5 +1,5 @@
-export const ButtonSearch = ({handleSeach}) => {
+export const ButtonSearch = ({handleSearch}) => {
   return (
-    <button type="submit" onClick={handleSeach}>Search</button>
+    <button type="submit" onClick={handleSearch}>Search</button>
   )
 }

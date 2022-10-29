@@ -1,34 +1,41 @@
 import '../../style/productContent.css';
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useContext } from "react";
-import { itemLoad, productLoad } from "../../context/actions";
-import { ProductContext } from "../../context/context";
 import { Product } from "../product";
 import { useState } from "react";
 import { InputSearch } from "../inputSearch";
 import { ButtonSearch } from '../buttonSearch';
 import { ButtonIndex } from '../buttonsIndex';
+import { ProductContext } from '../../context/context';
+import { itemLoad, productLoad, productSearch } from '../../context/actions';
 
 export const ProductsContent = () => {
+  const isMounted = useRef(true);
   const productContext = useContext(ProductContext);
   const {productState, productDispacth } = productContext;
   const produtos = productState.products;
 
   const [index, setIndex] = useState({ inicio: 0, fim: 12});
   const [total, setTotal] = useState(0);
-  const [seachBy, setSeachBy] = useState('')
+  const [searchBy, setSearchBy] = useState('')
 
-  useEffect((handleSeach) => {
-    productState.busca && handleSeach();
+  useEffect(() => {
+    productState.busca && productLoad(productDispacth, productState.product)
+      .then(dispatch => isMounted && dispatch());
+
+    return () => isMounted.current = false;
+  },[productState.busca, productDispacth, productState.product]);
+
+  useEffect(() => {
     setTotal((t) => t = produtos.length % 12 === 0
     ? parseInt(produtos.length / 12)
     : parseInt(produtos.length / 12) + 1);
-  },[productState.busca, produtos.length]);
+  }, [produtos.length])
 
-  const handleSeach = () => {
-    productLoad(productDispacth, productState.product);
-    setSeachBy(productState.product);
+  const handleSearch = () => {
+    productState.product && productSearch(productDispacth);
+    setSearchBy(productState.product);
   }
 
   const handleIndex = ({target}) => {
@@ -46,8 +53,8 @@ export const ProductsContent = () => {
   return (
     <section >
       <InputSearch />
-      <ButtonSearch handleSeach={handleSeach} />
-      {seachBy && <h3>Você pesquisou por "{seachBy}"</h3>}
+      <ButtonSearch handleSearch={handleSearch} />
+      {searchBy && <h3>Você pesquisou por "{searchBy}"</h3>}
       <div className="productContent">
         {productState.loading
         ? <span>Carregando</span>

@@ -7,11 +7,11 @@ export const productLoad = async (dispatch, product) => {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   const response = await fetch(endPoint);
   const data = await response.json();
-  dispatch({type: types.PRODUCT_SUCCESS , payload: data});
+  return () => dispatch({type: types.PRODUCT_SUCCESS , payload: data});
 }
 
-export const producSeach = (dispatch, payload) => {
-  dispatch({type: types.PRODUCT_SEARCH, payload});
+export const productSearch = (dispatch) => {
+  dispatch({type: types.PRODUCT_SEARCH});
 }
 
 export const productChange = (dispatch, info) => {
@@ -19,7 +19,7 @@ export const productChange = (dispatch, info) => {
 }
 
 export const itemLoad = async (dispatch, id) => {
-  
+
   dispatch({type: types.ITEM_LOADING});
 
   const endPoint = `https://api.mercadolibre.com/items/${id}`;

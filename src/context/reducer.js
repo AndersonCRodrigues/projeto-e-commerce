@@ -12,11 +12,9 @@ export const reducer = (state, action) => {
       return {...state, loarding: true }
     }
     case types.PRODUCT_SEARCH: {
-      console.log(action.payload);
       return {...state, busca: true }
     }
     case types.PRODUCT_CHANGE: {
-      console.log(action.payload);
       return {...state, product: action.payload }
     }
     case types.ITEM_SUCCESS: {
