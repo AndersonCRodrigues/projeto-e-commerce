@@ -20,7 +20,7 @@ export const ProductsContent = () => {
   }
 
   return (
-    <div >
+    <section >
       <p>Produtos</p>
       <input type="text" onChange={handleChange} name='product' value={productState.product}/>
       <button onClick={handleSeach}>Search</button>
@@ -34,6 +34,6 @@ export const ProductsContent = () => {
         price={product.price}
         />)}
       </div>
-    </div>
+    </section>
   );
 }
