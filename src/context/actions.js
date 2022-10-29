@@ -17,3 +17,13 @@ export const producSeach = (dispatch, payload) => {
 export const productChange = (dispatch, info) => {
   dispatch({type: types.PRODUCT_CHANGE, payload: info})
 }
+
+export const itemLoad = async (dispatch, id) => {
+  
+  dispatch({type: types.ITEM_LOADING});
+
+  const endPoint = `https://api.mercadolibre.com/items/${id}`;
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  dispatch({type: types.ITEM_SUCCESS, payload: data});
+}

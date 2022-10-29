@@ -1,4 +1,5 @@
- import { Header } from '../components/header';
+ import { Cart } from '../components/cart';
+import { Header } from '../components/header';
 import { NavFilter } from '../components/navegadorFilter';
 import { ProductsContent } from '../components/productsContent';
 import { ProductProvider } from '../context';
@@ -11,6 +12,7 @@ export default function App() {
       <main>
         <NavFilter />
         <ProductsContent />
+        <Cart />
       </main>
     </ProductProvider>
   );

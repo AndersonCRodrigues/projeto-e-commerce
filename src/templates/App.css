@@ -2,3 +2,7 @@ main {
   width: 100%;
   display: flex;
 }
+
+.cart {
+  width: 200px;
+}

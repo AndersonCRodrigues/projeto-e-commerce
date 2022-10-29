@@ -2,7 +2,7 @@ import '../../style/productContent.css';
 
 import { useEffect } from "react";
 import { useContext } from "react";
-import { productLoad } from "../../context/actions";
+import { itemLoad, productLoad } from "../../context/actions";
 import { ProductContext } from "../../context/context";
 import { Product } from "../product";
 import { useState } from "react";
@@ -29,7 +29,6 @@ export const ProductsContent = () => {
   const handleSeach = () => {
     productLoad(productDispacth, productState.product);
     setSeachBy(productState.product);
-
   }
 
   const handleIndex = ({target}) => {
@@ -37,13 +36,15 @@ export const ProductsContent = () => {
     setIndex({ inicio: id, fim: (Number(id) + 12)})
   }
 
+  const handleGetId = ({target}) => {
+    itemLoad(productDispacth, target.parentNode.id);
+  }
+
   const nButtons = Array(parseInt(total)).fill('');
   const arrRender = produtos.slice(index.inicio, index.fim);
-  console.log(index);
 
   return (
     <section >
-      <p>Produtos</p>
       <InputSearch />
       <ButtonSearch handleSeach={handleSeach} />
       {seachBy && <h3>Você pesquisou por "{seachBy}"</h3>}
@@ -52,9 +53,11 @@ export const ProductsContent = () => {
         ? <span>Carregando</span>
         : arrRender.map((product) => <Product
         key={product.id}
+        id={product.id}
         title={product.title}
         thumbnail={product.thumbnail}
         price={product.price}
+        handleGetId={ handleGetId }
         />)}
       </div>
       <ul className="indexBtn">

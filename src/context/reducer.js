@@ -19,6 +19,15 @@ export const reducer = (state, action) => {
       console.log(action.payload);
       return {...state, product: action.payload }
     }
+    case types.ITEM_SUCCESS: {
+      return {...state,
+        items: [...state.items, action.payload],
+        itemLoarding: false,
+      }
+    }
+    case types.ITEM_LOADING: {
+      return {...state, itemLoarding: true }
+    }
     default: {
       return {...state}
     }

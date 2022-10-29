@@ -1,6 +1,10 @@
 export const data = {
   products: [],
-  loading: false,
   product: '',
+  loading: false,
+  items: [],
+  item: '',
   busca: false,
+  itemLoading: false,
+  shoppingCart: [],
 };
