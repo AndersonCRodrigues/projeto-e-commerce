@@ -3,12 +3,21 @@ import * as types from './types';
 export const reducer = (state, action) => {
   switch (action.type) {
     case types.PRODUCT_SUCCESS: {
-      console.log(action.payload);
-      return {...state, products: action.payload.results, loarding: false }
+      return {...state, products: action.payload.results,
+        loarding: false,
+        busca: false,
+        product: '' }
     }
     case types.PRODUCT_LOADING: {
-      console.log(action.payload);
       return {...state, loarding: true }
+    }
+    case types.PRODUCT_SEARCH: {
+      console.log(action.payload);
+      return {...state, busca: true }
+    }
+    case types.PRODUCT_CHANGE: {
+      console.log(action.payload);
+      return {...state, product: action.payload }
     }
     default: {
       return {...state}

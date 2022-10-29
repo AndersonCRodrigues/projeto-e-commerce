@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useContext } from "react";
-import { productLoad } from "../../context/actions";
+import {  productChange, productLoad } from "../../context/actions";
 import { ProductContext } from "../../context/context";
 import { Product } from "../product";
 import '../../style/productContent.css';
@@ -10,22 +10,30 @@ export const ProductsContent = () => {
   const {productState, productDispacth } = productContext;
 
   useEffect(() => {
-    productLoad(productDispacth);
-  },[productDispacth]);
+    productState.busca && handleSeach();
+  });
 
-  console.log(productState.results);
+  const handleSeach = () => productLoad(productDispacth, productState.product);
+
+  const handleChange = ({target}) => {
+    productChange(productDispacth, target.value)
+  }
 
   return (
-    <div className="productContent">
+    <div >
       <p>Produtos</p>
-      {productState.loading
-      ? <span>Carregando</span>
-      : productState.products.map((product) => <Product
-      key={product.id}
-      title={product.title}
-      thumbnail={product.thumbnail}
-      price={product.price}
-      />)}
+      <input type="text" onChange={handleChange} name='product' value={productState.product}/>
+      <button onClick={handleSeach}>Search</button>
+      <div className="productContent">
+        {productState.loading
+        ? <span>Carregando</span>
+        : productState.products.map((product) => <Product
+        key={product.id}
+        title={product.title}
+        thumbnail={product.thumbnail}
+        price={product.price}
+        />)}
+      </div>
     </div>
   );
 }
