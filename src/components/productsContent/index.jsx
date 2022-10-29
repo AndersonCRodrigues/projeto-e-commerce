@@ -13,6 +13,7 @@ export const ProductsContent = () => {
 
   const [index, setIndex] = useState({ inicio: 0, fim: 12});
   const [total, setTotal] = useState(0);
+  const [seachBy, setSeachBy] = useState('')
 
   useEffect((handleSeach) => {
     productState.busca && handleSeach();
@@ -21,7 +22,11 @@ export const ProductsContent = () => {
     : parseInt(produtos.length / 12) + 1);
   },[productState.busca, produtos.length]);
 
-  const handleSeach = () => productLoad(productDispacth, productState.product);
+  const handleSeach = () => {
+    productLoad(productDispacth, productState.product);
+    setSeachBy(productState.product);
+
+  }
 
   const handleChange = ({target}) => {
     productChange(productDispacth, target.value)
@@ -41,6 +46,7 @@ export const ProductsContent = () => {
       <p>Produtos</p>
       <input type="text" onChange={handleChange} name='product' value={productState.product}/>
       <button type="submit" onClick={handleSeach}>Search</button>
+      {seachBy && <h3>Você pesquisou por "{seachBy}"</h3>}
       <div className="productContent">
         {productState.loading
         ? <span>Carregando</span>
