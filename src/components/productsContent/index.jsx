@@ -7,6 +7,8 @@ import { ProductContext } from "../../context/context";
 import { Product } from "../product";
 import { useState } from "react";
 import { InputSearch } from "../inputSearch";
+import { ButtonSearch } from '../buttonSearch';
+import { ButtonIndex } from '../buttonsIndex';
 
 export const ProductsContent = () => {
   const productContext = useContext(ProductContext);
@@ -43,7 +45,7 @@ export const ProductsContent = () => {
     <section >
       <p>Produtos</p>
       <InputSearch />
-      <button type="submit" onClick={handleSeach}>Search</button>
+      <ButtonSearch handleSeach={handleSeach} />
       {seachBy && <h3>Você pesquisou por "{seachBy}"</h3>}
       <div className="productContent">
         {productState.loading
@@ -56,11 +58,12 @@ export const ProductsContent = () => {
         />)}
       </div>
       <ul className="indexBtn">
-        {nButtons.map((_,index) => <li key={index}><button
-          id={index * 12}
-          onClick={handleIndex}>
-            {index + 1}
-          </button></li>)}
+        {nButtons.map((_,index) =>
+          <li key={index}>
+            <ButtonIndex
+              index={index}
+              handleIndex={handleIndex}/>
+          </li>)}
       </ul>
     </section>
   );
